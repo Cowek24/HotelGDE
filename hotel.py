@@ -80,10 +80,7 @@ def main():
     szalloda = Szalloda("GDE OOP Hotel")
     szalloda.szoba_hozzaadasa(EgyagyasSzoba(101))
     szalloda.szoba_hozzaadasa(EgyagyasSzoba(102))
-    szalloda.szoba_hozzaadasa(EgyagyasSzoba(103))
-    szalloda.szoba_hozzaadasa(KetagyasSzoba(201))
-    szalloda.szoba_hozzaadasa(KetagyasSzoba(202))
-    szalloda.szoba_hozzaadasa(KetagyasSzoba(203))
+    szalloda.szoba_hozzaadasa(KetagyasSzoba(103))
 
 # a menü szerkezete:
 
