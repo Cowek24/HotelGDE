@@ -38,7 +38,7 @@ class Szalloda:
                 print("A dátum érvénytelen. Csak jövőbeli dátumokra lehet foglalni.")
                 return None
         except ValueError:
-            print("A dátum formátuma érvénytelen. Kérjük, használja a következő formátumot: ÉÉÉÉ-HH-NN.")
+            print("A dátum formátuma érvénytelen. Kérjük, használja a következő formátumot: ÉÉÉÉ.HH.NN")
             return None
         for foglalas in self.foglalasok:
             if foglalas.szoba.szobaszam == szobaszam and foglalas.datum == datum:
@@ -82,8 +82,17 @@ def main():
     szalloda.szoba_hozzaadasa(EgyagyasSzoba(102))
     szalloda.szoba_hozzaadasa(KetagyasSzoba(103))
 
-# a menü szerkezete:
+    elozetes_foglalasok = [
+            (101, "2024.06.01", "Teszt Vendég1"),
+            (102, "2024.06.02", "Teszt Vendég2"),
+            (103, "2024.06.03", "Teszt Vendég3"),
+            (101, "2024.06.04", "Teszt Vendég4"),
+            (102, "2024.06.05", "Teszt Vendég5")
+    ]
+    for szobaszam, datum, vendeg_neve in elozetes_foglalasok:
+            szalloda.foglalas(szobaszam, datum, vendeg_neve)
 
+# a menü szerkezete:
     while True:
         print("1. Szobák listázása")
         print("2. Szoba foglalása")
@@ -92,7 +101,7 @@ def main():
         print("5. Kilépés")
         valasztas = input("Válassz egy opciót: ")
 
-# a menüpontoknak megfelelő működések - jó sok feltételes elágazással fűszerezve:
+# a menüpontoknak megfelelő működés - jó sok feltételes elágazással fűszerezve:
 
         if valasztas == '1':
             szalloda.szobak_listazasa()
@@ -122,3 +131,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# az igazi az lett volna ha TXT-be kírja folyamatosan a foglalásokat, majd indításnál mindig visszaolvassa azt.
+# Persze akkor az elmúlt dátumok okoztak problémát, azt is le kellett volna kezelni. Lett volna hozzá kedvem, de időm most nem :-/
+# Elengedtem mert nem volt a feladat része, csak jól esett volna :-)
