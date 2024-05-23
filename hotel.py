@@ -133,5 +133,5 @@ if __name__ == "__main__":
     main()
 
 # az igazi az lett volna ha TXT-be kírja folyamatosan a foglalásokat, majd indításnál mindig visszaolvassa azt.
-# Persze akkor az elmúlt dátumok okoztak problémát, azt is le kellett volna kezelni. Lett volna hozzá kedvem, de időm most nem :-/
+# Persze akkor az elmúlt dátumok okoznak problémát, azt is le kellett volna kezelni. Lett volna hozzá kedvem, de időm most nem :-/
 # Elengedtem mert nem volt a feladat része, csak jól esett volna :-)
