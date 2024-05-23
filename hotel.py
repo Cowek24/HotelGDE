@@ -1,21 +1,20 @@
+from datetime import datetime
 
 # Szoba osztály definiálása, melynek két fő tulajdonsága (attribútuma) van: A száma, és az ára
 class Szoba:
     def __init__(self, ar, szobaszam):
         self.ar = ar
         self.szobaszam = szobaszam
-
     def info(self):
         return f"Szoba - szobaszam: {self.szobaszam}, Ár: {self.ar} Ft"
-
 # Egyágyas szobák - első emelet
-class EgyaSzoba(Szoba):
+class EgyagyasSzoba(Szoba):
     def __init__(self, szobaszam):
         super().__init__(ar=24000, szobaszam=szobaszam)
     def info(self):
         return f"Egyágyas szoba - szobaszam: {self.szobaszam}, Ár: {self.ar} Ft"
 # Kétágyas szoba - második emeleten}
-class KetaSzoba(Szoba):
+class KetagyasSzoba(Szoba):
     def __init__(self, szobaszam):
         super().__init__(ar=32000, szobaszam=szobaszam)
     def info(self):
@@ -25,17 +24,28 @@ class Szalloda:
         self.nev = nev
         self.szobak = []
         self.foglalasok = []
-
 # itt adjuk hozzá a szobát a szobák listájához
     def szoba_hozzaadasa(self, szoba):
         self.szobak.append(szoba)
-
     def szobak_listazasa(self):
         for szoba in self.szobak:
             print(szoba.info())
-
-# ez a foglalási metódus - ha valami nem stimmel, nem foglal ja le (pl: szobaszam nem létezik)
+    # Ellenőrzés, hogy van-e már foglalás erre a szobára és dátumra
     def foglalas(self, szobaszam, datum, vendeg_neve):
+        try:
+            foglalas_datum = datetime.strptime(datum, "%Y.%m.%d")
+            if foglalas_datum <= datetime.now():
+                print("A dátum érvénytelen. Csak jövőbeli dátumokra lehet foglalni.")
+                return None
+        except ValueError:
+            print("A dátum formátuma érvénytelen. Kérjük, használja a következő formátumot: ÉÉÉÉ-HH-NN.")
+            return None
+        for foglalas in self.foglalasok:
+            if foglalas.szoba.szobaszam == szobaszam and foglalas.datum == datum:
+                print("Ez a szoba már foglalt ezen a napon.")
+                return None
+
+# ez a foglalási metódus - ha valami nem stimmel, nem foglalja le (pl: szobaszam nem létezik)
         for szoba in self.szobak:
             if szoba.szobaszam == szobaszam:
                 uj_foglalas = Foglalas(szoba, datum, vendeg_neve)
@@ -55,7 +65,6 @@ class Szalloda:
     def foglalasok_listazasa(self):
         for foglalas in self.foglalasok:
             print(foglalas.info())
-
 class Foglalas:
     def __init__(self, szoba, datum, vendeg_neve):
         self.szoba = szoba
@@ -69,12 +78,12 @@ class Foglalas:
 # itt hozzuk létre a hotelünket - kedvünkre bővíthetjük a szobák számát
 def main():
     szalloda = Szalloda("GDE OOP Hotel")
-    szalloda.szoba_hozzaadasa(EgyaSzoba(101))
-    szalloda.szoba_hozzaadasa(EgyaSzoba(102))
-    szalloda.szoba_hozzaadasa(EgyaSzoba(103))
-    szalloda.szoba_hozzaadasa(KetaSzoba(201))
-    szalloda.szoba_hozzaadasa(KetaSzoba(202))
-    szalloda.szoba_hozzaadasa(KetaSzoba(203))
+    szalloda.szoba_hozzaadasa(EgyagyasSzoba(101))
+    szalloda.szoba_hozzaadasa(EgyagyasSzoba(102))
+    szalloda.szoba_hozzaadasa(EgyagyasSzoba(103))
+    szalloda.szoba_hozzaadasa(KetagyasSzoba(201))
+    szalloda.szoba_hozzaadasa(KetagyasSzoba(202))
+    szalloda.szoba_hozzaadasa(KetagyasSzoba(203))
 
 # a menü szerkezete:
 
